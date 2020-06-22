@@ -4,7 +4,7 @@ terraform {
     organization = "kaedemalu" # 現在のOrganizantion Name
  
     workspaces {
-      name = "terraform_101" # 使っているWorkspaceの名前
+      name = "terraform_101_handson" # 使っているWorkspaceの名前
     }
   }
 }
