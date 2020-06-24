@@ -14,10 +14,10 @@ resource "google_compute_backend_service" "web_backend" {
   timeout_sec = 3000
 
   backend {
-    group = google_compute_instance_group.instance_group.self_link
+    group = google_compute_instance_group.web_instance_group.self_link
   }
 
-  health_checks = [google_compute_health_check.health-check.self_link]
+  health_checks = [google_compute_health_check.web_health.self_link]
 }
 
 resource "google_compute_instance_group" "web_instance_group" {
