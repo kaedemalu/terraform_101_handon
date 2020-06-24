@@ -11,11 +11,6 @@ resource "google_compute_health_check" "web_health" {
   }
 }
 
-resource "google_compute_url_map" "url_map" {
-  name        = "url-map"
-  default_service = google_compute_backend_service.web_backend.self_link
-}
-
 resource "google_compute_backend_service" "web_backend" {
   name        = "web-backend"
   port_name   = "http"
@@ -36,7 +31,7 @@ resource "google_compute_url_map" "web_lb" {
 
 resource "google_compute_target_http_proxy" "http_proxy" {
   name             = "http-proxy"
-  url_map          = google_compute_url_map.url_map.self_link
+  url_map          = google_compute_url_map.web_lb.self_link
 }
 
 resource "google_compute_global_forwarding_rule" "forwarding_rule" {
