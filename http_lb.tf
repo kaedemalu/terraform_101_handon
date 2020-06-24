@@ -11,6 +11,11 @@ resource "google_compute_health_check" "web_health" {
   }
 }
 
+resource "google_compute_url_map" "url_map" {
+  name        = "url-map"
+  default_service = google_compute_backend_service.web_backend.self_link
+}
+
 resource "google_compute_backend_service" "web_backend" {
   name        = "web-backend"
   port_name   = "http"
@@ -24,7 +29,7 @@ resource "google_compute_backend_service" "web_backend" {
   health_checks = [google_compute_health_check.web_health.self_link]
 }
 
-resource "google_compute_url_map" "web-lb" {
+resource "google_compute_url_map" "web_lb" {
   name        = "web-lb"
   default_service = google_compute_backend_service.web_backend.self_link
 }
