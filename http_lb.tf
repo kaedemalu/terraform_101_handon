@@ -31,7 +31,7 @@ resource "google_compute_target_http_proxy" "http_proxy" {
 }
 
 resource "google_compute_global_forwarding_rule" "forwarding_rule" {
-  name       = "forwarding_rule"
+  name       = "forwarding-rule"
   target     = google_compute_target_http_proxy.http_proxy.self_link
   port_range = "80"
 }
