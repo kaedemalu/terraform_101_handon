@@ -41,5 +41,5 @@ resource "google_compute_instance_group" "web_instance_group" {
 
   instances = [google_compute_instance.web_instance.self_link]
 
-  zone = "asia-northeast1-a"
+  zone = "asia-northeast3-a"
 }
