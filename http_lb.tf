@@ -1,3 +1,7 @@
+resource "google_compute_global_address" "web_lb" {
+  name = "web-lb"
+}
+
 resource "google_compute_health_check" "web_health" {
   name = "web-health"
   timeout_sec        = 1
@@ -20,8 +24,8 @@ resource "google_compute_backend_service" "web_backend" {
   health_checks = [google_compute_health_check.web_health.self_link]
 }
 
-resource "google_compute_url_map" "url_map" {
-  name        = "url-map"
+resource "google_compute_url_map" "web-lb" {
+  name        = "web-lb"
   default_service = google_compute_backend_service.web_backend.self_link
 }
 
@@ -34,6 +38,7 @@ resource "google_compute_global_forwarding_rule" "forwarding_rule" {
   name       = "forwarding-rule"
   target     = google_compute_target_http_proxy.http_proxy.self_link
   port_range = "80"
+  ip_address = google_compute_global_address.web_lb.address
 }
 
 resource "google_compute_instance_group" "web_instance_group" {
